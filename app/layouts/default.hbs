@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if IE 8]>         <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>         <html class="lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <meta name="description" content="{{ description }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" href="/media/favicon.ico">
+
+        <title>{{ title }}</title>
+
+        <!-- build:css(.tmp) /styles/main.css -->
+            <link rel="stylesheet" href="/styles/main.css">
+            <link rel="stylesheet" href="/icons.css">
+        <!-- endbuild -->
+
+    </head>
+    <body>
+
+        <main class="container">
+            {{> body}}
+        </main>
+
+        <footer class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline">
+                        <li><a href="">Terms of Use</a></li>
+                        <li><a href="">Privacy Policy</a></li>
+                        <li><a href="">Contact Us</a></li>
+                        <li><a href="">Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ copyright }}</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- build:js({.,app}) /scripts/ie9.js -->
+            <!--[if IE 9]>
+
+            <![endif]-->
+        <!-- endbuild -->
+
+        <!-- build:js({.,app}) /scripts/main.js -->
+            <!-- bower:js -->
+            <!-- endbower -->
+            <script src="/scripts/main.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
