@@ -1,0 +1,15 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Global Settings
+@import "settings";
+
+// Bootstrap
+@import "bootstrap";
+
+// Components
+@import
+    "partials/global",
+    "partials/footer";
+
+// Sections / Pages
