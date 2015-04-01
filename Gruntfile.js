@@ -325,7 +325,7 @@ module.exports = function (grunt) {
             ]
         },
 
-        // Pick an unused port for karma
+        // Pick an unused port for livereload
         portPick: {
             livereload: {
                 targets: ['connect.options.livereload']
