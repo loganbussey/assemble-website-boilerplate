@@ -45,7 +45,10 @@ module.exports = function (grunt) {
                     '<%= config.app %>/data/{,*/}*.{yml,json}',
                     '<%= config.app %>/{layouts,pages,partials}/{,**/}*.hbs'
                 ],
-                tasks: ['assemble']
+                tasks: [
+                    'assemble',
+                    'wiredep'
+                ]
             },
             js: {
                 files: [
