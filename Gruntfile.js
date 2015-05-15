@@ -24,7 +24,8 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             gruntfile: {
-                files: ['Gruntfile.js']
+                files: ['Gruntfile.js'],
+                tasks: ['wiredep']
             },
             bower: {
                 files: ['bower.json'],
