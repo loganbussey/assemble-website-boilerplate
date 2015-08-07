@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         // The actual grunt server settings
         connect: {
             options: {
-                port: 9000,
+                port: 0,
                 open: true,
                 livereload: 0,
                 hostname: 'localhost'
@@ -331,6 +331,12 @@ module.exports = function (grunt) {
 
         // Pick an unused port for livereload
         portPick: {
+            connect: {
+                options: {
+                    port: 9000
+                },
+                targets: ['connect.options.port']
+            },
             livereload: {
                 targets: ['connect.options.livereload']
             }
@@ -372,7 +378,7 @@ module.exports = function (grunt) {
             'clean:server',
             'assemble',
             'wiredep',
-            'portPick:livereload',
+            'portPick',
             'concurrent:server',
             'autoprefixer',
             'connect:livereload',
