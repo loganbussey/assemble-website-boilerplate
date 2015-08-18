@@ -20,6 +20,7 @@ module.exports = function (grunt) {
 
         // Project settings
         config: config,
+        credentials: grunt.file.readJSON('credentials.json'),
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
@@ -367,6 +368,24 @@ module.exports = function (grunt) {
             ]
         },
 
+        s3: {
+            options: {
+                accessKeyId: '<%= credentials.aws.accessKeyId %>',
+                secretAccessKey: '<%= credentials.aws.secretAccessKey %>',
+                signatureVersion: 'v4',
+                headers: {
+                    CacheControl: 'public, no-cache'
+                }
+            },
+            dist: {
+                options: {
+                    bucket: 'yw-test-bucket',
+                },
+                cwd: '<%= config.dist %>',
+                src: '**'
+            }
+       },
+
     });
 
     grunt.registerTask('serve', function (target) {
@@ -404,6 +423,11 @@ module.exports = function (grunt) {
         'filerev',
         'usemin',
         'htmlmin'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'build',
+        's3'
     ]);
 
     grunt.registerTask('default', [
