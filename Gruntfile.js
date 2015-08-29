@@ -32,16 +32,6 @@ module.exports = function (grunt) {
                 files: ['bower.json'],
                 tasks: ['wiredep']
             },
-            livereload: {
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                },
-                files: [
-                    '{.tmp,<%= config.app %>}/{,**/}*.{html,css,js,json}',
-                    '<%= config.app %>/media/{,**/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '!<%= config.app %>/media/icons/*'
-                ]
-            },
             assemble: {
                 files: [
                     '<%= config.app %>/data/{,*/}*.{yml,json}',
@@ -76,29 +66,34 @@ module.exports = function (grunt) {
             },
         },
 
-        // The actual grunt server settings
-        connect: {
+
+        browserSync: {
             options: {
                 port: 0,
-                open: true,
-                livereload: 0,
-                hostname: 'localhost'
+                notify: false,
+                background: true
             },
             livereload: {
                 options: {
-                    middleware: function(connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
-                        ];
+                    files: [
+                        '.tmp/{,*/}*.html',
+                        '.tmp/styles/{,*/}*.css',
+                        '<%= config.app %>/scripts/{,*/}*.js',
+                        '<%= config.app %>/media/{,*/}*',
+                        '!<%= config.app %>/media/icons/*'
+                    ],
+                    server: {
+                        baseDir: ['.tmp', config.app],
+                        routes: {
+                            '/bower_components': './bower_components'
+                        }
                     }
                 }
             },
             dist: {
                 options: {
-                    base: '<%= config.dist %>',
-                    livereload: false
+                    background: false,
+                    server: '<%= config.dist %>'
                 }
             }
         },
@@ -332,14 +327,11 @@ module.exports = function (grunt) {
 
         // Pick an unused port for livereload
         portPick: {
-            connect: {
+            browserSync: {
                 options: {
                     port: 9000
                 },
-                targets: ['connect.options.port']
-            },
-            livereload: {
-                targets: ['connect.options.livereload']
+                targets: ['browserSync.options.port']
             }
         },
 
@@ -390,7 +382,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
+            return grunt.task.run(['build', 'browserSync:dist']);
         }
 
         grunt.task.run([
@@ -400,7 +392,7 @@ module.exports = function (grunt) {
             'portPick',
             'concurrent:server',
             'autoprefixer',
-            'connect:livereload',
+            'browserSync:livereload',
             'watch'
         ]);
     });
