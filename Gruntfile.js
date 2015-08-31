@@ -382,7 +382,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'browserSync:dist']);
+            return grunt.task.run(['build', 'portPick:browserSync', 'browserSync:dist']);
         }
 
         grunt.task.run([
