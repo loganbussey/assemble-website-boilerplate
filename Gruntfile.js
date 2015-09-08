@@ -7,7 +7,8 @@ module.exports = function (grunt) {
 
     // Automatically load required grunt tasks
     require('jit-grunt')(grunt, {
-        useminPrepare: 'grunt-usemin'
+        useminPrepare: 'grunt-usemin',
+        s3: 'grunt-aws'
     });
 
     // configurable paths
