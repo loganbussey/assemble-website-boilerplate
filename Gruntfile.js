@@ -80,7 +80,7 @@ module.exports = function (grunt) {
                         '.tmp/{,*/}*.html',
                         '.tmp/styles/{,*/}*.css',
                         '<%= config.app %>/scripts/{,*/}*.js',
-                        '<%= config.app %>/media/{,*/}*',
+                        '<%= config.app %>/media/{,**/}*',
                         '!<%= config.app %>/media/icons/*'
                     ],
                     server: {
