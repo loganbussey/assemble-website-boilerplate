@@ -361,6 +361,7 @@ module.exports = function (grunt) {
             ]
         },
 
+        // Deploy to AWS S3
         s3: {
             options: {
                 accessKeyId: '<%= credentials.aws.accessKeyId %>',
@@ -377,7 +378,19 @@ module.exports = function (grunt) {
                 cwd: '<%= config.dist %>',
                 src: '**'
             }
-       },
+        },
+
+        // Increment version number, create and push tag
+        bump: {
+            options: {
+                files: [
+                    'package.json',
+                    'bower.json'
+                ],
+                commitFiles: '<%= bump.options.files %>',
+                pushTo: 'origin'
+            }
+        }
 
     });
 
