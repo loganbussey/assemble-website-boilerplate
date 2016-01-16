@@ -31,7 +31,7 @@ On a Mac with [Brew](http://brew.sh) installed, ttfautohint can be installed via
 Once everything is installed you can check out the source and install required local node modules and bower components. Note: `npm install` will call `bower install` so you don't need to call it separately.
 
     $ mkdir assemble-website-boilerplate && cd $_
-    $ git clone https://github.com/lukebussey/assemble-website-boilerplate.git
+    $ git clone https://github.com/lukebussey/assemble-website-boilerplate.git --origin upstream .
     $ npm install
 
 Start the local development server
