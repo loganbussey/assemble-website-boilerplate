@@ -33,6 +33,7 @@ Once everything is installed you can check out the source and install required l
     $ mkdir assemble-website-boilerplate && cd $_
     $ git clone https://github.com/lukebussey/assemble-website-boilerplate.git --origin upstream .
     $ npm install
+    $ cp credentials.json-template credentials.json
 
 Start the local development server
 
