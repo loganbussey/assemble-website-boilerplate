@@ -12,8 +12,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "assemble": "^0.4.42",
     "grunt": "^1.0.1",
+    "grunt-assemble": "^0.5.0",
     "grunt-autoprefixer": "^3.0.0",
     "grunt-aws": "^0.6.0",
     "grunt-browser-sync": "^2.1.3",
