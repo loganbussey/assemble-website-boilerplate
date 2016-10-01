@@ -120,7 +120,8 @@ module.exports = function (grunt) {
         assemble: {
             options: {
                 root: '.tmp',
-                layout: 'default.hbs',
+                layout: 'default',
+                layoutext: '.hbs',
                 layoutdir: '<%= config.app %>/layouts',
                 assets: '<%= config.app %>',
                 data: '<%= config.app %>/data/*.{json,yml}',
