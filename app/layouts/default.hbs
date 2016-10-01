@@ -6,13 +6,18 @@
         <meta charset="utf-8">
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        
+
         <meta name="description" content="{{ description }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="shortcut icon" href="/media/favicon.ico">
 
         <title>{{ title }}</title>
+
+        {{#isnt page_name '404'}}
+            <meta property="og:url" content="{{replace dirname root ""}}/">
+            <link rel="canonical" href="{{replace dirname root ""}}/">
+        {{/isnt}}
 
         <!-- build:css(.tmp) /styles/main.css -->
             <link rel="stylesheet" href="/styles/main.css">

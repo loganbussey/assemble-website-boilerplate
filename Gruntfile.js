@@ -8,7 +8,8 @@ module.exports = function (grunt) {
     // Automatically load required grunt tasks
     require('jit-grunt')(grunt, {
         useminPrepare: 'grunt-usemin',
-        s3: 'grunt-aws'
+        s3: 'grunt-aws',
+        replace: 'grunt-text-replace'
     });
 
     // configurable paths
@@ -22,6 +23,7 @@ module.exports = function (grunt) {
         // Project settings
         config: config,
         credentials: grunt.file.readJSON('credentials.json'),
+        package: grunt.file.readJSON('package.json'),
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
@@ -66,7 +68,6 @@ module.exports = function (grunt) {
                 tasks: ['webfont']
             },
         },
-
 
         browserSync: {
             options: {
@@ -118,11 +119,16 @@ module.exports = function (grunt) {
         // Generate pages
         assemble: {
             options: {
+                root: '.tmp',
                 layout: 'default.hbs',
                 layoutdir: '<%= config.app %>/layouts',
                 assets: '<%= config.app %>',
                 data: '<%= config.app %>/data/*.{json,yml}',
-                partials: '<%= config.app %>/partials/{,*/}*.hbs'
+                partials: '<%= config.app %>/partials/{,*/}*.hbs',
+                plugins: ['grunt-assemble-sitemap'],
+                sitemap: {
+                    relativedest: '.tmp'
+                }
             },
             pages: {
                 files: [{
@@ -282,6 +288,8 @@ module.exports = function (grunt) {
                     dest: '<%= config.dist %>',
                     src: [
                         'media/fonts/*',
+                        'robots.txt',
+                        'sitemap.xml'
                     ]
                 },{
                     expand: true,
@@ -390,7 +398,50 @@ module.exports = function (grunt) {
                 commitFiles: '<%= bump.options.files %>',
                 pushTo: 'origin'
             }
-        }
+        },
+
+        // Text replacements
+        replace: {
+            openGraphTag: {
+                src: [
+                    '<%= config.dist %>/{,**/}*.html',
+                ],
+                overwrite: true,
+                replacements: [{
+                    from: /<meta property=og:(image|url) content="?(\/[^"?>]+)"?/g,
+                    to: '<meta property=og:$1 content=<%= package.homepage %>$2'
+                }]
+            },
+            relCanonical: {
+                src: [
+                    '<%= config.dist %>/{,**/}*.html',
+                ],
+                overwrite: true,
+                replacements: [{
+                    from: /<link rel=canonical href="?(\/[^"?>]+)"?/g,
+                    to: '<link rel=canonical href=<%= package.homepage %>$1'
+                }]
+            },
+            sitemap: {
+                src: [
+                    '<%= config.dist %>/sitemap.xml',
+                ],
+                overwrite: true,
+                replacements: [
+                    {
+                        from: 'index.html',
+                        to: ''
+                    }, {
+                        from: /\s+<changefreq>[a-z]+<\/changefreq>/g,
+                        to: ''
+                    }, {
+                        from: /\s+<priority>[0-9\.]+<\/priority>/g,
+                        to: ''
+                    }
+
+                ]
+            }
+        },
 
     });
 
@@ -433,6 +484,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', [
         'build',
+        'replace',
         's3'
     ]);
 
