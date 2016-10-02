@@ -1,0 +1,38 @@
+//
+// Main Layout (inherits from default layout)
+// --------------------------------------------------
+
+.layout-main {
+
+    @at-root {
+        html {
+            min-height: 100%;
+            position: relative;
+        }
+
+        body {
+            margin-bottom: 60px;
+
+            @media (min-width: $screen-md-min) {
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    footer {
+        bottom: 0;
+        height: 60px;
+        left: 0;
+        position: absolute;
+        right: 0;
+
+        @media (min-width: $screen-md-min) {
+            height: 30px;
+
+            p {
+                text-align: right;
+            }
+        }
+    }
+
+}

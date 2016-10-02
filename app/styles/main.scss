@@ -7,9 +7,13 @@
 // Bootstrap
 @import "bootstrap";
 
-// Components
-@import
-    "partials/global",
-    "partials/footer";
+// Partials / Components
 
-// Sections / Pages
+
+// Layouts
+@import "layouts/default";
+@import "layouts/main";
+
+// Pages
+@import "pages/home";
+@import "pages/404";

@@ -4,48 +4,68 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="referrer" content="always">
 
-        <meta name="description" content="{{ description }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{#each layout_meta_tags}}
+            {{{this}}}
+        {{/each}}
+        {{#each page_meta_tags}}
+            {{{this}}}
+        {{/each}}
 
-        <link rel="shortcut icon" href="/media/favicon.ico">
+        <title>{{seo_title}}</title>
+        <meta name="description" content="{{seo_description}}">
 
-        <title>{{ title }}</title>
+        {{#if fb_app_id}}<meta property="fb:app_id" content="{{fb_app_id}}">{{/if}}
+
+        <meta property="og:site_name" content="{{og_site_name}}">
+        <meta property="og:title" content="{{#if og_title}}{{og_title}}{{else}}{{seo_title}}{{/if}}">
+        <meta property="og:description" content="{{#if og_description}}{{og_description}}{{else}}{{seo_description}}{{/if}}">
+        <meta property="og:type" content="{{#if og_type}}{{og_type}}{{else}}website{{/if}}">
+        <meta property="og:image" content="{{#if og_image}}{{og_image}}{{else}}/media/open-graph/default.jpg{{/if}}">
 
         {{#isnt page_name '404'}}
             <meta property="og:url" content="{{replace dirname root ""}}/">
             <link rel="canonical" href="{{replace dirname root ""}}/">
         {{/isnt}}
 
+        {{#if og_video}}
+            <meta property="og:video:url" content="{{og_video.url}}">
+            <meta property="og:video:secure_url" content="{{og_video.url}}">
+            <meta property="og:video:width" content="{{og_video.width}}">
+            <meta property="og:video:height" content="{{og_video.height}}">
+            <meta property="og:video:type" content="{{og_video.type}}">
+        {{/if}}
+
+        <meta name="twitter:card" content="{{#if twitter_card}}{{twitter_card}}{{else}}summary{{/if}}">
+        <meta name="twitter:site" content="{{twitter_site}}">
+
+        {{#if twitter_player}}
+            <meta name="twitter:player" content="{{twitter_player.url}}">
+            <meta name="twitter:player:width" content="{{twitter_player.width}}">
+            <meta name="twitter:player:height" content="{{twitter_player.height}}">
+        {{/if}}
+
+        <link rel="shortcut icon" href="/media/favicon.ico">
+
         <!-- build:css(.tmp) /styles/main.css -->
             <link rel="stylesheet" href="/styles/main.css">
             <link rel="stylesheet" href="/icons.css">
         <!-- endbuild -->
 
+        {{#each layout_head_scripts}}
+            {{{this}}}
+        {{/each}}
+        {{#each page_head_scripts}}
+            {{{this}}}
+        {{/each}}
+
     </head>
-    <body>
+    <body class="{{layout_body_class}} {{page_body_class}}">
 
-        <main class="container">
-            {{> body}}
-        </main>
-
-        <footer class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <ul class="list-inline">
-                        <li><a href="">Terms of Use</a></li>
-                        <li><a href="">Privacy Policy</a></li>
-                        <li><a href="">Contact Us</a></li>
-                        <li><a href="">Help</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <p>{{ copyright }}</p>
-                </div>
-            </div>
-        </footer>
+        {{> body}}
 
         <!-- build:js({.,app}) /scripts/ie9.js -->
             <!--[if IE 9]>
