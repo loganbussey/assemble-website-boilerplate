@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                 files: ['<%= config.app %>/styles/{,*/}*.scss'],
                 tasks: [
                     'sass:server',
-                    'autoprefixer'
+                    'postcss'
                 ]
             },
             webfont: {
@@ -73,7 +73,8 @@ module.exports = function (grunt) {
             options: {
                 port: 0,
                 notify: false,
-                background: true
+                background: true,
+                timestamps: false
             },
             livereload: {
                 options: {
@@ -87,7 +88,8 @@ module.exports = function (grunt) {
                     server: {
                         baseDir: ['.tmp', config.app],
                         routes: {
-                            '/bower_components': './bower_components'
+                            '/bower_components': './bower_components',
+                            '/app/styles': './app/styles'
                         }
                     }
                 }
@@ -161,13 +163,17 @@ module.exports = function (grunt) {
             }
         },
 
-        // Add vendor prefixed styles
-        autoprefixer: {
+        // Process CSS
+        postcss: {
             options: {
-                browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1'],
                 map: {
-                    prev: '.tmp/styles/'
-                }
+                    inline: false
+                },
+                processors: [
+                    require('autoprefixer')({
+                        browsers: ['> 1%', 'last 2 versions']
+                    })
+                ]
             },
             dist: {
                 files: [{
@@ -457,7 +463,7 @@ module.exports = function (grunt) {
             'wiredep',
             'portPick',
             'concurrent:server',
-            'autoprefixer',
+            'postcss',
             'browserSync:livereload',
             'watch'
         ]);
@@ -473,7 +479,7 @@ module.exports = function (grunt) {
         'wiredep',
         'useminPrepare',
         'concurrent:dist',
-        'autoprefixer',
+        'postcss',
         'concat',
         'cssmin',
         'uglify',
