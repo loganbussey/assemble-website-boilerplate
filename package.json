@@ -38,7 +38,6 @@
     "grunt-text-replace": "^0.4.0",
     "grunt-usemin": "^3.0.0",
     "grunt-webfont": "^1.1.0",
-    "grunt-wiredep": "^3.0.1",
     "jit-grunt": "^0.10.0",
     "jshint-stylish": "^2.0.1",
     "time-grunt": "^1.2.1"
@@ -46,7 +45,5 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "scripts": {
-    "postinstall": "bower install"
-  }
+  "scripts": {}
 }

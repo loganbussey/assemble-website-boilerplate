@@ -27,23 +27,12 @@ module.exports = function (grunt) {
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
-            gruntfile: {
-                files: ['Gruntfile.js'],
-                tasks: ['wiredep']
-            },
-            bower: {
-                files: ['bower.json'],
-                tasks: ['wiredep']
-            },
             assemble: {
                 files: [
                     '<%= config.app %>/data/{,*/}*.{yml,json}',
                     '<%= config.app %>/{layouts,pages,partials}/{,**/}*.hbs'
                 ],
-                tasks: [
-                    'assemble',
-                    'wiredep'
-                ]
+                tasks: ['assemble']
             },
             js: {
                 files: [
@@ -88,7 +77,6 @@ module.exports = function (grunt) {
                     server: {
                         baseDir: ['.tmp', config.app],
                         routes: {
-                            '/bower_components': './bower_components',
                             '/app/styles': './app/styles'
                         }
                     }
@@ -149,7 +137,7 @@ module.exports = function (grunt) {
                 sourceMap: true,
                 includePaths: [
                     '<%= config.app %>',
-                    'bower_components'
+                    'node_modules'
                 ]
             },
             server: {
@@ -307,24 +295,7 @@ module.exports = function (grunt) {
                         '{,**/}*.html',
                         '!icons.html'
                     ]
-                },{
-                    expand: true,
-                    dot: true,
-                    cwd: 'bower_components',
-                    dest: '<%= config.dist %>/bower_components',
-                    src: [
-                        'bootstrap-sass-official/assets/fonts/bootstrap/*'
-                    ]
                 }]
-            }
-        },
-
-        // Automatically inject Bower components into the HTML file
-        wiredep: {
-            app: {
-                src: '.tmp/{,**/}*.html',
-                ignorePath: '../',
-                exclude: []
             }
         },
 
@@ -357,7 +328,7 @@ module.exports = function (grunt) {
                 src: [
                     '<%= config.dist %>/scripts/{,*/}*.js',
                     '<%= config.dist %>/styles/{,*/}*.css',
-                    '<%= config.dist %>/{media,bower_components}/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}'
+                    '<%= config.dist %>/media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}'
                 ]
             }
         },
@@ -398,10 +369,7 @@ module.exports = function (grunt) {
         // Increment version number, create and push tag
         bump: {
             options: {
-                files: [
-                    'package.json',
-                    'bower.json'
-                ],
+                files: ['package.json'],
                 commitFiles: '<%= bump.options.files %>',
                 pushTo: 'origin'
             }
@@ -460,7 +428,6 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'assemble',
-            'wiredep',
             'portPick',
             'concurrent:server',
             'postcss',
@@ -476,7 +443,6 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'assemble',
-        'wiredep',
         'useminPrepare',
         'concurrent:dist',
         'postcss',
