@@ -4,35 +4,18 @@
 
 .layout-main {
 
+    display: flex;
+    flex-direction: column;
+
     @at-root {
-        html {
-            min-height: 100%;
-            position: relative;
-        }
-
+        html,
         body {
-            margin-bottom: 60px;
-
-            @media (min-width: $screen-md-min) {
-                margin-bottom: 30px;
-            }
+            min-height: 100vh;
         }
     }
 
-    footer {
-        bottom: 0;
-        height: 60px;
-        left: 0;
-        position: absolute;
-        right: 0;
-
-        @media (min-width: $screen-md-min) {
-            height: 30px;
-
-            p {
-                text-align: right;
-            }
-        }
+    main {
+        flex-grow: 1;
     }
 
 }

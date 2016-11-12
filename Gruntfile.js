@@ -38,10 +38,10 @@ module.exports = function (grunt) {
                 files: [
                     '<%= config.app %>/scripts/{,*/}*.js'
                 ],
-                tasks: ['jshint'],
-                options: {
-                    spawn: false,
-                },
+                tasks: [
+                    'browserify',
+                    'jshint'
+                ]
             },
             sass: {
                 files: ['<%= config.app %>/styles/{,*/}*.scss'],
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                     files: [
                         '.tmp/{,*/}*.html',
                         '.tmp/styles/{,*/}*.css',
-                        '<%= config.app %>/scripts/{,*/}*.js',
+                        '.tmp/scripts/main.js',
                         '<%= config.app %>/media/{,**/}*',
                         '!<%= config.app %>/media/icons/*'
                     ],
@@ -144,10 +144,25 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= config.app %>',
-                    src: ['{,*/}*.scss'],
+                    src: ['styles/{,*/}*.scss'],
                     dest: '.tmp',
                     ext: '.css'
                 }]
+            }
+        },
+
+        // JavaScript
+        browserify: {
+            options: {
+                transform: [
+                    ['babelify', {
+                        'presets': ['es2015']
+                    }]
+                ]
+            },
+            server: {
+                src: '<%= config.app %>/scripts/main.js',
+                dest: '.tmp/scripts/main.js',
             }
         },
 
@@ -158,8 +173,19 @@ module.exports = function (grunt) {
                     inline: false
                 },
                 processors: [
+                    require('postcss-flexbugs-fixes'),
                     require('autoprefixer')({
-                        browsers: ['> 1%', 'last 2 versions']
+                        browsers: [
+                            'Chrome >= 35',
+                            'Firefox >= 38',
+                            'Edge >= 12',
+                            'Explorer >= 9',
+                            'iOS >= 8',
+                            'Safari >= 8',
+                            'Android 2.3',
+                            'Android >= 4',
+                            'Opera >= 12'
+                        ]
                     })
                 ]
             },
@@ -338,10 +364,12 @@ module.exports = function (grunt) {
             server: [
                 'webfont',
                 'sass:server',
+                'browserify'
             ],
             dist: [
                 'webfont',
                 'sass',
+                'browserify',
                 'imagemin',
                 'svgmin'
             ]
