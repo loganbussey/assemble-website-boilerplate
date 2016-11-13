@@ -189,7 +189,24 @@ module.exports = function (grunt) {
                     })
                 ]
             },
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/',
+                    src: '{,*/}*.css',
+                    dest: '.tmp/'
+                }]
+            },
             dist: {
+                options: {
+                    processors: [
+                        require('postcss-uncss')({
+                            html: [
+                                '.tmp/{,*/}*.html'
+                            ]
+                        })
+                    ]
+                },
                 files: [{
                     expand: true,
                     cwd: '.tmp/',
@@ -363,7 +380,7 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'webfont',
-                'sass:server',
+                'sass',
                 'browserify'
             ],
             dist: [
@@ -458,7 +475,7 @@ module.exports = function (grunt) {
             'assemble',
             'portPick',
             'concurrent:server',
-            'postcss',
+            'postcss:server',
             'browserSync:livereload',
             'watch'
         ]);
@@ -473,7 +490,7 @@ module.exports = function (grunt) {
         'assemble',
         'useminPrepare',
         'concurrent:dist',
-        'postcss',
+        'postcss:dist',
         'concat',
         'cssmin',
         'uglify',
