@@ -342,6 +342,20 @@ module.exports = function (grunt) {
             }
         },
 
+        // Inline Critical CSS
+        critical: {
+            options: {
+                base: '<%= config.dist %>',
+                minify: true,
+                width: 1440,
+                height: 900
+            },
+            home: {
+                src: '<%= config.dist %>/index.html',
+                dest: '<%= config.dist %>/index.html'
+            }
+        },
+
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
@@ -497,7 +511,8 @@ module.exports = function (grunt) {
         'copy:dist',
         'filerev',
         'usemin',
-        'htmlmin'
+        'htmlmin',
+        'critical'
     ]);
 
     grunt.registerTask('deploy', [
