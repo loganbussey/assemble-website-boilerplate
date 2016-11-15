@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         ],
         tasks: [
           'browserify',
-          'jshint'
+          'eslint'
         ]
       },
       sass: {
@@ -363,14 +363,11 @@ module.exports = function (grunt) {
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
-    jshint: {
+    eslint: {
       options: {
-        jshintrc: '.jshintrc',
-        force: true,
-        reporter: require('jshint-stylish')
+        configFile: '.eslint.json'
       },
-      all: [
-        'Gruntfile.js',
+      target: [
         '<%= config.app %>/scripts/{,*/}*.js'
       ]
     },
@@ -502,7 +499,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'jshint'
+    'eslint'
   ]);
 
   grunt.registerTask('build', [

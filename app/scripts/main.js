@@ -8,7 +8,7 @@ global.Tether = Tether;
 
 require('bootstrap');
 
-$(document).ready(function () {
+$(document).ready(() => {
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
 });
