@@ -85,7 +85,13 @@ module.exports = function (grunt) {
       dist: {
         options: {
           background: false,
-          server: '<%= config.dist %>'
+          server: '<%= config.dist %>',
+          snippetOptions: {
+            rule: {
+              // disable auto-injection
+              match: /^$/
+            }
+          }
         }
       }
     },
