@@ -4,18 +4,18 @@
 
 .layout-main {
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    @at-root {
-        html,
-        body {
-            min-height: 100vh;
-        }
+  @at-root {
+    html,
+    body {
+      min-height: 100vh;
     }
+  }
 
-    main {
-        flex-grow: 1;
-    }
+  main {
+    flex-grow: 1;
+  }
 
 }
