@@ -42,3 +42,15 @@ Build the site into the dist directory
 Build and view the site in your browser
 
     $ grunt serve:dist
+
+## Troubleshooting
+
+If you receive the following error:
+
+    Running "postcss:dist" (postcss) task
+    [BS] File changed: .tmp/styles/main.css
+    Fatal error: Bad argument
+
+The PhantomJS module needs fixing, you can fix this by running
+
+    $ npm run fix

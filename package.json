@@ -54,5 +54,7 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "scripts": {}
+  "scripts": {
+    "fix": "node ./node_modules/phantomjs-prebuilt/install.js"
+  }
 }
