@@ -77,6 +77,7 @@ module.exports = function (grunt) {
           server: {
             baseDir: ['.tmp', config.app],
             routes: {
+              '/node_modules': './node_modules',
               '/app/styles': './app/styles'
             }
           }
