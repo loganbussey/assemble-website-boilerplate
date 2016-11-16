@@ -1,0 +1,10 @@
+//
+// Mix-ins
+// --------------------------------------------------
+
+// Target IE10 and IE11
+@mixin ie-only() {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}
