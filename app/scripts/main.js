@@ -1,5 +1,6 @@
 'use strict';
 
+import 'svgxuse';
 import jQuery from 'jquery';
 import Tether from 'tether';
 

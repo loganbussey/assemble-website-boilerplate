@@ -241,6 +241,29 @@ module.exports = function (grunt) {
       }
     },
 
+    // Generate SVG Sprites
+    svg_sprite: {
+      options: {
+        svg: {
+          xmlDeclaration: false,
+        },
+        mode: {
+          symbol: {
+            dest: '.',
+            sprite: 'icons.svg'
+          }
+        }
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/media/icons',
+          src: '{,**/}*.svg',
+          dest: '.tmp/media'
+        }]
+      }
+    },
+
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -491,6 +514,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'assemble',
+      'svg_sprite',
       'portPick',
       'concurrent:server',
       'postcss:server',
@@ -506,6 +530,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'assemble',
+    'svg_sprite',
     'useminPrepare',
     'concurrent:dist',
     'postcss:dist',
