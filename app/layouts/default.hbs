@@ -61,7 +61,7 @@
     {{/each}}
 
   </head>
-  <body class="{{layout_body_class}} {{page_body_class}}">
+  <body class="{{#each layout_body_classes}}{{this}} {{/each}} {{page_body_class}}">
 
     {{> body}}
 
