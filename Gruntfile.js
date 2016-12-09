@@ -30,7 +30,7 @@ module.exports = function (grunt) {
       assemble: {
         files: [
           '<%= config.app %>/data/{,*/}*.{yml,json}',
-          '<%= config.app %>/{layouts,pages,partials}/{,**/}*.hbs'
+          '<%= config.app %>/{layouts,pages,partials}/{,**/}*.{hbs,md}'
         ],
         tasks: ['assemble']
       },
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
         files: ['<%= config.app %>/styles/{,*/}*.scss'],
         tasks: [
           'sass:server',
-          'postcss'
+          'postcss:server'
         ]
       },
       webfont: {
@@ -123,17 +123,48 @@ module.exports = function (grunt) {
         assets: '<%= config.app %>',
         data: '<%= config.app %>/data/*.{json,yml}',
         partials: '<%= config.app %>/partials/{,*/}*.hbs',
-        plugins: ['grunt-assemble-sitemap'],
-        sitemap: {
-          relativedest: '.tmp'
+        plugins: [
+          'grunt-assemble-contextual'
+        ],
+        contextual: {
+          dest: '.tmp'
+        },
+        marked: {
+          breaks: true
         }
       },
       pages: {
+        options: {
+          plugins: [
+            'grunt-assemble-permalinks',
+            'grunt-assemble-sitemap'
+          ],
+          sitemap: {
+            relativedest: '.tmp',
+            robot: false
+          },
+          permalinks: {
+            preset: 'pretty'
+          }
+        },
         files: [{
           expand: true,
           cwd: '<%= config.app %>/pages',
           dest: '.tmp',
-          src: '{,**/}*.hbs'
+          src: [
+            '{,**/}*.{hbs,md}',
+            '!404.hbs'
+          ]
+        }]
+      },
+      special: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/pages',
+          dest: '.tmp',
+          src: [
+            '404.hbs'
+          ]
         }]
       }
     },
