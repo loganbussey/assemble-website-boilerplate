@@ -123,6 +123,7 @@ module.exports = function (grunt) {
         assets: '<%= config.app %>',
         data: '<%= config.app %>/data/*.{json,yml}',
         partials: '<%= config.app %>/partials/{,*/}*.hbs',
+        helpers: ['<%= config.app %>/helpers/*.js'],
         plugins: [
           'grunt-assemble-contextual'
         ],
