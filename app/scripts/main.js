@@ -1,12 +1,7 @@
-'use strict';
-
 import jQuery from 'jquery';
-import Tether from 'tether';
-
 global.$ = global.jQuery = jQuery;
-global.Tether = Tether;
 
-require('bootstrap');
+import 'bootstrap';
 
 $(document).ready(() => {
   $('[data-toggle="tooltip"]').tooltip();

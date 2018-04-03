@@ -195,7 +195,7 @@ module.exports = function (grunt) {
       options: {
         transform: [
           ['babelify', {
-            'presets': ['es2015']
+            'presets': ['env']
           }]
         ]
       },
@@ -215,15 +215,16 @@ module.exports = function (grunt) {
           require('postcss-flexbugs-fixes'),
           require('autoprefixer')({
             browsers: [
-              'Chrome >= 35',
+              'last 1 major version',
+              '>= 1%',
+              'Chrome >= 45',
               'Firefox >= 38',
               'Edge >= 12',
-              'Explorer >= 9',
-              'iOS >= 8',
-              'Safari >= 8',
-              'Android 2.3',
-              'Android >= 4',
-              'Opera >= 12'
+              'Explorer >= 10',
+              'iOS >= 9',
+              'Safari >= 9',
+              'Android >= 4.4',
+              'Opera >= 30'
             ]
           })
         ]
@@ -254,6 +255,7 @@ module.exports = function (grunt) {
               ]
             }),
             require('postcss-uncss')({
+              htmlroot: '.tmp',
               html: [
                 '.tmp/{,*/}*.html'
               ]
