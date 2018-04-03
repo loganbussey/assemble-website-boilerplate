@@ -54,7 +54,7 @@
     "uncss": "^0.14.1"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "fix": "node ./node_modules/phantomjs-prebuilt/install.js"
