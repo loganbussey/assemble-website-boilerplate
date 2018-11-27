@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/lukebussey/assemble-website-boilerplate",
   "dependencies": {
-    "bootstrap": "4.0.0",
+    "bootstrap": ">=4.1.3",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.5"
   },
