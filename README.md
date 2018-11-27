@@ -1,4 +1,4 @@
-# Assemble Website Boilerplate
+# Grunt Assemble Website Boilerplate
 
 The goal of this project is to represent a highly optimized static website build using [Assemble](http://assemble.io) for page generation, [Bootstrap](https://getbootstrap/) as a front-end framework and [grunt-webfont](https://github.com/sapegin/grunt-webfont) for custom webfont generation.
 
