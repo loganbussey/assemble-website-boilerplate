@@ -1,5 +1,7 @@
 'use strict';
 
+var sass = require('node-sass');
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -173,6 +175,7 @@ module.exports = function (grunt) {
     // Compile Sass
     sass: {
       options: {
+        implementation: sass,
         sourceMap: true,
         includePaths: [
           '<%= config.app %>',
