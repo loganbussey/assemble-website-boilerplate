@@ -193,12 +193,12 @@ module.exports = function (grunt) {
       }
     },
 
-    // JavaScript
+    // Converts ES6 to ES5 for browser compatibility
     browserify: {
       options: {
         transform: [
           ['babelify', {
-            'presets': ['env']
+            'presets': ['@babel/preset-env']
           }]
         ]
       },

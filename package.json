@@ -17,10 +17,10 @@
     "popper.js": "^1.14.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
     "autoprefixer": "^8.6.5",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babelify": "^8.0.0",
+    "babelify": "^10.0.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "grunt": "^1.0.3",
@@ -39,7 +39,7 @@
     "grunt-contrib-cssmin": "^2.2.0",
     "grunt-contrib-htmlmin": "^2.0.0",
     "grunt-contrib-imagemin": "^2.0.1",
-    "grunt-contrib-uglify": "^3.4.0",
+    "grunt-contrib-uglify": "^4.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-critical": "0.2.1",
     "grunt-eslint": "^21.0.0",
