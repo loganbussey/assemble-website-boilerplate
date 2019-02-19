@@ -12,7 +12,7 @@ Install [NVM](http://nvm.sh), and follow the instructions for adding to your she
 
 Install a default LTS version of Node and [avn](https://github.com/wbyoung/avn) for automatic node version switching.
 
-    $ nvm install 8
+    $ nvm install 10
     $ npm install -g avn avn-nvm
     $ avn setup
 
@@ -34,7 +34,7 @@ Once everything is installed you can check out the source and install required l
 
     $ mkdir assemble-website-boilerplate && cd $_
     $ git clone https://github.com/lukebussey/assemble-website-boilerplate.git --origin upstream .
-    $ npm install
+    $ npm ci
     $ cp credentials.json-template credentials.json
 
 Start the local development server
