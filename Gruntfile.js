@@ -244,23 +244,19 @@ module.exports = function (grunt) {
         options: {
           processors: [
             require('postcss-flexbugs-fixes'),
-            require('autoprefixer')({
-              browsers: [
-                'Chrome >= 35',
-                'Firefox >= 38',
-                'Edge >= 12',
-                'Explorer >= 9',
-                'iOS >= 8',
-                'Safari >= 8',
-                'Android 2.3',
-                'Android >= 4',
-                'Opera >= 12'
-              ]
-            }),
+            require('autoprefixer'),
             require('postcss-uncss')({
               htmlroot: '.tmp',
               html: [
                 '.tmp/{,*/}*.html'
+              ],
+              ignore: [
+                '.arrow',
+                '.show',
+                '.hide',
+                '.fade',
+                /\.(bs-)?popover/,
+                /\.(bs-)?tooltip/
               ]
             })
           ]
