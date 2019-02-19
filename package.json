@@ -52,7 +52,7 @@
     "jit-grunt": "^0.10.0",
     "postcss-flexbugs-fixes": "^3.3.1",
     "postcss-uncss": "^0.16.1",
-    "time-grunt": "^1.2.1",
+    "time-grunt": "^2.0.0",
     "uncss": "^0.16.2"
   },
   "engines": {
