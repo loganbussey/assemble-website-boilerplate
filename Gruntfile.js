@@ -156,7 +156,7 @@ module.exports = function (grunt) {
           dest: '.tmp',
           src: [
             '{,**/}*.{hbs,md}',
-            '!404.hbs'
+            '!error.hbs'
           ]
         }]
       },
@@ -166,7 +166,7 @@ module.exports = function (grunt) {
           cwd: '<%= config.app %>/pages',
           dest: '.tmp',
           src: [
-            '404.hbs'
+            'error.hbs'
           ]
         }]
       }

@@ -23,7 +23,7 @@
     <meta property="og:type" content="{{#if og_type}}{{og_type}}{{else}}website{{/if}}">
     <meta property="og:image" content="{{#if og_image}}{{og_image}}{{else}}/media/open-graph/default.jpg{{/if}}">
 
-    {{#isnt page_name '404'}}
+    {{#isnt page_name 'error'}}
       <meta property="og:url" content="{{replace dirname root ""}}/">
       <link rel="canonical" href="{{replace dirname root ""}}/">
     {{/isnt}}
