@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukebussey/assemble-website-boilerplate.git"
+    "url": "https://github.com/loganbussey/assemble-website-boilerplate.git"
   },
-  "homepage": "https://github.com/lukebussey/assemble-website-boilerplate",
+  "homepage": "https://github.com/loganbussey/assemble-website-boilerplate",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "jquery": "^3.3.1",
