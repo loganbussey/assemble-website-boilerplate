@@ -341,7 +341,8 @@ module.exports = function (grunt) {
           removeEmptyAttributes: true,
           removeOptionalTags: true,
           removeRedundantAttributes: false,
-          useShortDoctype: true
+          useShortDoctype: true,
+          processScripts: ['application/ld+json']
         },
         files: [{
           expand: true,

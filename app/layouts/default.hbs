@@ -68,5 +68,51 @@
 
     {{> body}}
 
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "@id": "#organization",
+        "name": "{{og_site_name}}",
+        "url": "{{url}}",
+        "logo": "{{url}}media/logos/logo.svg",
+        "sameAs": [
+          {{#each social_urls}}
+            '{{{this}}}',
+          {{/each}}
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "@id": "#website",
+        "name": "{{og_site_name}}",
+        "url": "{{url}}",
+        "publisher": {
+         "@type": "Organization",
+          "name": "{{og_site_name}}"
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebPage",
+        "name": "{{seo_title}}",
+        "description": "{{seo_description}}",
+        {{#isnt page_name 'error'}}
+          "url": "{{replace dirname root ""}}/",
+        {{/isnt}}
+        "publisher": {
+          "@type": "Organization",
+          "name": "{{og_site_name}}"
+        }
+      }
+    </script>
+
   </body>
 </html>
