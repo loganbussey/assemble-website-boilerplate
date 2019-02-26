@@ -537,8 +537,8 @@ module.exports = function (grunt) {
         ],
         overwrite: true,
         replacements: [{
-          from: /<meta property=og:(image|url) content="?(\/[^"?>]+)"?/g,
-          to: '<meta property=og:$1 content=<%= package.homepage %>$2'
+          from: /<meta property="og:(image|url)" content="?([^"]+)"?/g,
+          to: '<meta property="og:$1" content="<%= package.homepage %>$2"'
         }]
       },
       relCanonical: {
@@ -547,8 +547,8 @@ module.exports = function (grunt) {
         ],
         overwrite: true,
         replacements: [{
-          from: /<link rel=canonical href="?(\/[^"?>]+)"?/g,
-          to: '<link rel=canonical href=<%= package.homepage %>$1'
+          from: /<link rel="canonical" href="?([^"]+)"?/g,
+          to: '<link rel="canonical" href="<%= package.homepage %>$1"'
         }]
       },
       sitemap: {
@@ -610,13 +610,13 @@ module.exports = function (grunt) {
     'copy:dist',
     'filerev',
     'usemin',
+    'replace',
     'htmlmin',
     'critical'
   ]);
 
   grunt.registerTask('deploy', [
     'build',
-    'replace',
     's3:dist',
     's3:distAssets',
     'purge'
