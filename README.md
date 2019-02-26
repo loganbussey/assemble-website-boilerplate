@@ -28,6 +28,14 @@ On a Mac with [Brew](http://brew.sh) installed, ttfautohint can be installed via
 
     $ brew install ttfautohint
 
+### AWS Credentials
+
+To perform a deployment to S3 and Cloudfront invalidation, you'll need to have the correct credentials in your `~/.aws/credentials` file. [aws-mfa](https://github.com/broamski/aws-mfa) can automate this process for you.
+
+    $ brew install python3
+    $ pip3 install aws-mfa
+    $ aws-mfa
+
 ## Getting Started
 
 Once everything is installed you can check out the source and install required local node modules and bower components.
@@ -35,7 +43,6 @@ Once everything is installed you can check out the source and install required l
     $ mkdir assemble-website-boilerplate && cd $_
     $ git clone https://github.com/loganbussey/assemble-website-boilerplate.git --origin upstream .
     $ npm ci
-    $ cp credentials.json-template credentials.json
 
 Start the local development server
 

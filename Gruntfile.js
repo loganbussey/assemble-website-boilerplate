@@ -7,10 +7,13 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  require('dotenv').config();
+
   // Automatically load required grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     s3: 'grunt-aws',
+    cloudfront: 'grunt-aws',
     replace: 'grunt-text-replace'
   });
 
@@ -24,7 +27,6 @@ module.exports = function (grunt) {
 
     // Project settings
     config: config,
-    credentials: grunt.file.readJSON('credentials.json'),
     package: grunt.file.readJSON('package.json'),
 
     // Watches files for changes and runs tasks based on the changed files
@@ -460,19 +462,60 @@ module.exports = function (grunt) {
     // Deploy to AWS S3
     s3: {
       options: {
-        accessKeyId: '<%= credentials.aws.accessKeyId %>',
-        secretAccessKey: '<%= credentials.aws.secretAccessKey %>',
         signatureVersion: 'v4',
+        bucket: '<%= process.env.S3_BUCKET %>',
+        gzip: false,
         headers: {
-          CacheControl: 'public, no-cache'
+          CacheControl: 'public, no-cache, no-transform, s-maxage=31536000'
         }
+      },
+      // Define file location for all environments
+      default: {
+        src: [
+          '{,**/}*.html',
+          '{,*/}favicon.ico',
+          'robots.txt',
+          'sitemap.xml'
+        ]
+      },
+      defaultAssets: {
+        src: [
+          'scripts/{,*/}*.js',
+          'styles/{,*/}*.css',
+          'media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}'
+        ]
       },
       dist: {
         options: {
-          bucket: 'bucket',
+          headers: {
+            CacheControl: 'public, must-revalidate, no-transform, max-age=60, s-maxage=31536000'
+          }
         },
         cwd: '<%= config.dist %>',
-        src: '**'
+        src: '<%= s3.default.src %>'
+      },
+      distAssets: {
+        options: {
+          headers: {
+            CacheControl: 'public, must-revalidate, no-transform, max-age=31536000, s-maxage=31536000'
+          }
+        },
+        cwd: '<%= config.dist %>',
+        src: '<%= s3.defaultAssets.src %>'
+      }
+    },
+
+    // Invalidate Cloudfront
+    cloudfront: {
+      options: {
+        distributionId: '<%= process.env.CLOUDFRONT_ID %>'
+      },
+      production: {
+        options: {
+          invalidations: [
+            '/*'
+          ]
+        }
       }
     },
 
@@ -546,6 +589,10 @@ module.exports = function (grunt) {
     ]);
   });
 
+  grunt.registerTask('purge', [
+    'cloudfront'
+  ]);
+
   grunt.registerTask('test', [
     'eslint'
   ]);
@@ -569,7 +616,9 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy', [
     'build',
     'replace',
-    's3'
+    's3:dist',
+    's3:distAssets',
+    'purge'
   ]);
 
   grunt.registerTask('default', [

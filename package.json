@@ -13,6 +13,7 @@
   "homepage": "https://github.com/loganbussey/assemble-website-boilerplate",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "dotenv": "^6.2.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7"
   },
