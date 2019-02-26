@@ -59,13 +59,14 @@
       {{{this}}}
     {{/each}}
 
+    <!-- build:js(.tmp) /scripts/main.js -->
+      <script src="/scripts/main.js" async></script>
+    <!-- endbuild -->
+
   </head>
   <body class="{{#each layout_body_classes}}{{this}} {{/each}} {{page_body_class}}">
 
     {{> body}}
 
-    <!-- build:js(.tmp) /scripts/main.js -->
-      <script src="/scripts/main.js"></script>
-    <!-- endbuild -->
   </body>
 </html>
