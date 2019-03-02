@@ -20,6 +20,7 @@ module.exports = function (grunt) {
   // configurable paths
   var config = {
     app: 'app',
+    assets: 'assets',
     dist: 'dist'
   };
 
@@ -60,6 +61,12 @@ module.exports = function (grunt) {
         ],
         tasks: ['webfont']
       },
+      favicon: {
+        files: [
+          '<%= config.assets %>/icon.svg'
+        ],
+        tasks: ['realFavicon']
+      }
     },
 
     browserSync: {
@@ -277,6 +284,72 @@ module.exports = function (grunt) {
       }
     },
 
+    // Generate favicons
+    realFavicon: {
+      favicons: {
+        src: '<%= config.assets %>/icon.svg',
+        dest: '<%= config.app %>/media/',
+        options: {
+          iconsPath: '/media/',
+          // html: [ 'TODO: List of the HTML files where to inject favicon markups' ],
+          design: {
+            ios: {
+              pictureAspect: 'backgroundAndMargin',
+              backgroundColor: '#ffffff',
+              margin: '14%',
+              assets: {
+                ios6AndPriorIcons: false,
+                ios7AndLaterIcons: false,
+                precomposedIcons: false,
+                declareOnlyDefaultIcon: true
+              }
+            },
+            desktopBrowser: {},
+            windows: {
+              pictureAspect: 'whiteSilhouette',
+              backgroundColor: '#2d89ef',
+              onConflict: 'override',
+              assets: {
+                windows80Ie10Tile: false,
+                windows10Ie11EdgeTiles: {
+                  small: false,
+                  medium: true,
+                  big: false,
+                  rectangle: false
+                }
+              }
+            },
+            androidChrome: {
+              pictureAspect: 'noChange',
+              themeColor: '#ffffff',
+              manifest: {
+                name: '<%= package.name %>',
+                display: 'standalone',
+                orientation: 'notSet',
+                onConflict: 'override',
+                declared: true
+              },
+              assets: {
+                legacyIcon: false,
+                lowResolutionIcons: false
+              }
+            },
+            safariPinnedTab: {
+              pictureAspect: 'silhouette',
+              themeColor: '#5bbad5'
+            }
+          },
+          settings: {
+            scalingAlgorithm: 'Mitchell',
+            errorOnImageTooSmall: false,
+            readmeFile: false,
+            htmlCodeFile: false,
+            usePathAsIs: false
+          }
+        }
+      }
+    },
+
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
@@ -351,7 +424,7 @@ module.exports = function (grunt) {
           src: [
             '.htaccess',
             '*.txt',
-            'media/{,**/}*.{webp,gif,ico}',
+            'media/{,**/}*.{webp,gif,ico,xml,webmanifest}',
             'media/fonts/*'
           ]
         },{
@@ -426,7 +499,8 @@ module.exports = function (grunt) {
         src: [
           '<%= config.dist %>/scripts/{,*/}*.js',
           '<%= config.dist %>/styles/{,*/}*.css',
-          '<%= config.dist %>/media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}'
+          '<%= config.dist %>/media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}',
+          '!<%= config.dist %>/media/{android,apple,favicon,mstile,safari}*.*'
         ]
       }
     },
@@ -463,14 +537,18 @@ module.exports = function (grunt) {
           '{,**/}*.html',
           '{,*/}favicon.ico',
           'robots.txt',
-          'sitemap.xml'
+          'sitemap.xml',
+          'media/{android,apple,favicon,mstile,safari,}*.*',
+          'media/*.{xml,webmanifest}'
         ]
       },
       defaultAssets: {
         src: [
           'scripts/{,*/}*.js',
           'styles/{,*/}*.css',
-          'media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}'
+          'media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}',
+          '!media/{android,apple,favicon,mstile,safari}*.*',
+          '!media/*.{xml,webmanifest}'
         ]
       },
       dist: {

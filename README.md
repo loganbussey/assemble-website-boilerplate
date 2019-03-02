@@ -1,6 +1,6 @@
 # Grunt Assemble Website Boilerplate
 
-The goal of this project is to represent a highly optimized static website build using [Assemble](http://assemble.io) for page generation, [Bootstrap](https://getbootstrap/) as a front-end framework and [grunt-webfont](https://github.com/sapegin/grunt-webfont) for custom webfont generation.
+The goal of this project is to represent a highly optimized static website build using [Assemble](http://assemble.io) for page generation, [Bootstrap](https://getbootstrap/) as a front-end framework, [grunt-webfont](https://github.com/sapegin/grunt-webfont) for custom webfont generation, and [grunt-real-favicon](https://github.com/RealFaviconGenerator/grunt-real-favicon) for favicon generation.
 
 ## Prerequisites
 
@@ -55,6 +55,12 @@ Build the site into the dist directory
 Build and view the site in your browser
 
     $ grunt serve:dist
+
+## Favicomn Generation
+
+Favicons are generated from the file `assets/icon.svg` and because this process takes quit a while, it is only initiated if `assets/icon.svg` is edited, or can be manually run with the following command:
+
+     $ grunt realFavicon
 
 ## Troubleshooting
 
