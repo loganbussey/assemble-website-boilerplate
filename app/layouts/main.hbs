@@ -24,6 +24,45 @@ og_video:
 twitter_card:
 twitter_player:
 ---
+<header class="sticky-top">
+
+  <nav class="navbar navbar-expand-md">
+
+    <a class="navbar-brand" href="/">{{name}}</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav ml-auto">
+        {{#each header.nav}}
+          <li class="nav-item{{#if subnav}} dropdown{{/if}}">
+            <a class="nav-link{{#if subnav}} dropdown-toggle{{/if}}" href="{{link}}"{{#if subnav}} id="navbar-{{hyphenate (lowercase text)}}" role="button" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"{{/if}}>{{text}}</a>
+            {{#if subnav}}
+              <div class="dropdown-menu" aria-labelledby="navbar-{{hyphenate (lowercase text)}}">
+                {{#each subnav}}
+                  <a class="dropdown-item" href="{{link}}">{{text}}</a>
+                {{/each}}
+              </div>
+            {{/if}}
+          </li>
+        {{/each}}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sign In</a>
+        </li>
+      </ul>
+
+      <form class="form-inline hidden-sm-down">
+        <a class="btn btn-primary" href="#">Get Started</a>
+      </form>
+
+    </div>
+
+  </nav>
+
+</header>
+
 <main>
   {{>body}}
 </main>

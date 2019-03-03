@@ -7,3 +7,26 @@ url: https://www.example.com/
 social_urls:
   github: https://github.com/example
   facebook: https://www.facebook.com/example
+
+header:
+  nav:
+  - text: Menu Item
+    subnav:
+    - text: Submenu Item
+      link: /
+    - text: Submenu Item
+      link: /
+  - text: Menu Item
+    link: /
+  - text: Menu Item
+    subnav:
+    - text: SubMenu Item
+      link: /
+    - text: SubMenu Item
+      link: /
+  - text: Menu Item
+    subnav:
+    - text: SubMenu Item
+      link: /
+    - text: SubMenu Item
+      link: /
