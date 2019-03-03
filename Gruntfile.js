@@ -1,6 +1,7 @@
 'use strict';
 
 var sass = require('node-sass');
+var pngquant = require('imagemin-pngquant');
 
 module.exports = function (grunt) {
 
@@ -371,6 +372,11 @@ module.exports = function (grunt) {
 
     // The following *-min tasks produce minified files in the dist folder
     imagemin: {
+      options: {
+        use: [
+          pngquant()
+        ]
+      },
       dist: {
         files: [{
           expand: true,
