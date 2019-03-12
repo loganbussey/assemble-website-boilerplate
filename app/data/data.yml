@@ -8,6 +8,9 @@ social_urls:
   github: https://github.com/example
   facebook: https://www.facebook.com/example
 
+dns_prefetch:
+  - www.example.com
+
 header:
   nav:
   - text: Menu Item

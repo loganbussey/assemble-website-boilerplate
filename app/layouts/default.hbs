@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="referrer" content="always">
 
+    <link rel="preload" href="/styles/main.css" as="style">
+    <link rel="preload" href="/scripts/main.js" as="script">
+
+    {{#each dns_prefetch}}
+      <link rel="dns-prefetch" href="//{{{this}}}">
+    {{/each}}
+
     {{#each layout_meta_tags}}
       {{{this}}}
     {{/each}}
