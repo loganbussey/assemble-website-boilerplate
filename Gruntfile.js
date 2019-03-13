@@ -2,6 +2,9 @@
 
 var sass = require('node-sass');
 var pngquant = require('imagemin-pngquant');
+var mozjpeg = require('imagemin-mozjpeg');
+var optipng = require('imagemin-optipng');
+var svgo = require('imagemin-svgo');
 
 module.exports = function (grunt) {
 
@@ -374,24 +377,23 @@ module.exports = function (grunt) {
     imagemin: {
       options: {
         use: [
-          pngquant()
+          mozjpeg({
+            quality: 80
+          }),
+          optipng(),
+          pngquant(),
+          svgo({
+            plugins: [{
+              removeViewBox: false
+            }]
+          })
         ]
       },
       dist: {
         files: [{
           expand: true,
           cwd: '<%= config.app %>/media',
-          src: '{,**/}*.{png,jpg,jpeg}',
-          dest: '<%= config.dist %>/media'
-        }]
-      }
-    },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= config.app %>/media',
-          src: '{,**/}*.svg',
+          src: '{,**/}*.{png,jpg,jpeg,svg}',
           dest: '<%= config.dist %>/media'
         }]
       }
@@ -522,8 +524,7 @@ module.exports = function (grunt) {
         'webfont',
         'sass',
         'browserify',
-        'imagemin',
-        'svgmin'
+        'imagemin'
       ]
     },
 
