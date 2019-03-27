@@ -94,7 +94,7 @@
         "logo": "{{url}}media/logos/logo.svg",
         "sameAs": [
           {{#each social_urls}}
-            '{{{this}}}',
+            "{{{this}}}"{{#unless @last}},{{/unless}}
           {{/each}}
         ]
       }
