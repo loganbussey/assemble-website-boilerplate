@@ -474,11 +474,17 @@ module.exports = function (grunt) {
         base: '<%= config.dist %>',
         minify: true,
         width: 1440,
-        height: 900
+        height: 900,
+        ignore: [
+          '@font-face',
+          '@import'
+        ]
       },
-      home: {
-        src: '<%= config.dist %>/index.html',
-        dest: '<%= config.dist %>/index.html'
+      pages: {
+        expand: true,
+        cwd: '<%= config.dist %>',
+        src: '{,**/}*.html',
+        dest: '<%= config.dist %>',
       }
     },
 
