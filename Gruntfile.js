@@ -280,6 +280,7 @@ module.exports = function (grunt) {
           engine: 'node',
           hashes: false,
           stylesheet: 'css',
+          types: 'woff2,woff',
           relativeFontPath: '/media/fonts',
           templateOptions: {
             classPrefix: 'icon-',
