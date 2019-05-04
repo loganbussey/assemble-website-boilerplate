@@ -56,7 +56,7 @@ Build and view the site in your browser
 
     $ grunt serve:dist
 
-## Favicomn Generation
+## Favicon Generation
 
 Favicons are generated from the file `assets/icon.svg` and because this process takes quit a while, it is only initiated if `assets/icon.svg` is edited, or can be manually run with the following command:
 
