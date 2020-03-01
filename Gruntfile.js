@@ -282,7 +282,9 @@ module.exports = function (grunt) {
           stylesheet: 'css',
           types: 'woff2,woff',
           relativeFontPath: '/media/fonts',
+          template: 'icons-template.css',
           templateOptions: {
+            baseClass: 'icon',
             classPrefix: 'icon-',
           }
         }

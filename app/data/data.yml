@@ -7,6 +7,8 @@ url: https://www.example.com/
 social_urls:
   github: https://github.com/example
   facebook: https://www.facebook.com/example
+  linkedin: https://www.linkedin.com/example
+  twitter: https://www.twitter.com/example
 
 dns_prefetch:
   - www.example.com
