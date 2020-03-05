@@ -1,37 +1,37 @@
-'use strict';
+const sass = require('node-sass');
+const pngquant = require('imagemin-pngquant');
+const mozjpeg = require('imagemin-mozjpeg');
+const optipng = require('imagemin-optipng');
+const svgo = require('imagemin-svgo');
+const timeGrunt = require('time-grunt');
+const dotEnv = require('dotenv');
+const jitGrunt = require('jit-grunt');
 
-var sass = require('node-sass');
-var pngquant = require('imagemin-pngquant');
-var mozjpeg = require('imagemin-mozjpeg');
-var optipng = require('imagemin-optipng');
-var svgo = require('imagemin-svgo');
-
-module.exports = function (grunt) {
-
+module.exports = (grunt) => {
   // Time how long tasks take. Can help when optimizing build times
-  require('time-grunt')(grunt);
+  timeGrunt(grunt);
 
-  require('dotenv').config();
+  dotEnv.config();
 
   // Automatically load required grunt tasks
-  require('jit-grunt')(grunt, {
+  jitGrunt(grunt, {
     useminPrepare: 'grunt-usemin',
     s3: 'grunt-aws',
     cloudfront: 'grunt-aws',
-    replace: 'grunt-text-replace'
+    replace: 'grunt-text-replace',
   });
 
   // configurable paths
-  var config = {
+  const config = {
     app: 'app',
     assets: 'assets',
-    dist: 'dist'
+    dist: 'dist',
   };
 
   grunt.initConfig({
 
     // Project settings
-    config: config,
+    config,
     package: grunt.file.readJSON('package.json'),
 
     // Watches files for changes and runs tasks based on the changed files
@@ -39,38 +39,38 @@ module.exports = function (grunt) {
       assemble: {
         files: [
           '<%= config.app %>/data/{,*/}*.{yml,json}',
-          '<%= config.app %>/{layouts,pages,partials}/{,**/}*.{hbs,md}'
+          '<%= config.app %>/{layouts,pages,partials}/{,**/}*.{hbs,md}',
         ],
-        tasks: ['assemble']
+        tasks: ['assemble'],
       },
       js: {
         files: [
-          '<%= config.app %>/scripts/{,*/}*.js'
+          '<%= config.app %>/scripts/{,*/}*.js',
         ],
         tasks: [
           'browserify',
-          'eslint'
-        ]
+          'eslint',
+        ],
       },
       sass: {
         files: ['<%= config.app %>/styles/{,*/}*.scss'],
         tasks: [
           'sass:server',
-          'postcss:server'
-        ]
+          'postcss:server',
+        ],
       },
       webfont: {
         files: [
-          '<%= config.app %>/media/icons/*.svg'
+          '<%= config.app %>/media/icons/*.svg',
         ],
-        tasks: ['webfont']
+        tasks: ['webfont'],
       },
       favicon: {
         files: [
-          '<%= config.assets %>/icon.svg'
+          '<%= config.assets %>/icon.svg',
         ],
-        tasks: ['realFavicon']
-      }
+        tasks: ['realFavicon'],
+      },
     },
 
     browserSync: {
@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         port: 0,
         notify: false,
         background: true,
-        timestamps: false
+        timestamps: false,
       },
       livereload: {
         options: {
@@ -87,16 +87,16 @@ module.exports = function (grunt) {
             '.tmp/styles/{,*/}*.css',
             '.tmp/scripts/main.js',
             '<%= config.app %>/media/{,**/}*',
-            '!<%= config.app %>/media/icons/*'
+            '!<%= config.app %>/media/icons/*',
           ],
           server: {
             baseDir: ['.tmp', config.app],
             routes: {
               '/node_modules': './node_modules',
-              '/app/styles': './app/styles'
-            }
-          }
-        }
+              '/app/styles': './app/styles',
+            },
+          },
+        },
       },
       dist: {
         options: {
@@ -105,11 +105,11 @@ module.exports = function (grunt) {
           snippetOptions: {
             rule: {
               // disable auto-injection
-              match: /^$/
-            }
-          }
-        }
-      }
+              match: /^$/,
+            },
+          },
+        },
+      },
     },
 
     // Empties folders to start fresh
@@ -121,11 +121,11 @@ module.exports = function (grunt) {
             '.tmp',
             '.sass-cache',
             '<%= config.dist %>/*',
-            '!<%= config.dist %>/.git*'
-          ]
-        }]
+            '!<%= config.dist %>/.git*',
+          ],
+        }],
       },
-      server: '.tmp'
+      server: '.tmp',
     },
 
     // Generate pages
@@ -140,28 +140,28 @@ module.exports = function (grunt) {
         partials: '<%= config.app %>/partials/{,*/}*.hbs',
         helpers: ['<%= config.app %>/helpers/*.js'],
         plugins: [
-          'grunt-assemble-contextual'
+          'grunt-assemble-contextual',
         ],
         contextual: {
-          dest: '.tmp'
+          dest: '.tmp',
         },
         marked: {
-          breaks: true
-        }
+          breaks: true,
+        },
       },
       pages: {
         options: {
           plugins: [
             'grunt-assemble-permalinks',
-            'grunt-assemble-sitemap'
+            'grunt-assemble-sitemap',
           ],
           sitemap: {
             relativedest: '.tmp',
-            robot: false
+            robot: false,
           },
           permalinks: {
-            preset: 'pretty'
-          }
+            preset: 'pretty',
+          },
         },
         files: [{
           expand: true,
@@ -169,9 +169,9 @@ module.exports = function (grunt) {
           dest: '.tmp',
           src: [
             '{,**/}*.{hbs,md}',
-            '!error.hbs'
-          ]
-        }]
+            '!error.hbs',
+          ],
+        }],
       },
       special: {
         files: [{
@@ -179,10 +179,10 @@ module.exports = function (grunt) {
           cwd: '<%= config.app %>/pages',
           dest: '.tmp',
           src: [
-            'error.hbs'
-          ]
-        }]
-      }
+            'error.hbs',
+          ],
+        }],
+      },
     },
 
     // Compile Sass
@@ -192,8 +192,8 @@ module.exports = function (grunt) {
         sourceMap: true,
         includePaths: [
           '<%= config.app %>',
-          'node_modules'
-        ]
+          'node_modules',
+        ],
       },
       server: {
         files: [{
@@ -201,9 +201,9 @@ module.exports = function (grunt) {
           cwd: '<%= config.app %>',
           src: ['styles/{,*/}*.scss'],
           dest: '.tmp',
-          ext: '.css'
-        }]
-      }
+          ext: '.css',
+        }],
+      },
     },
 
     // Converts ES6 to ES5 for browser compatibility
@@ -211,34 +211,34 @@ module.exports = function (grunt) {
       options: {
         transform: [
           ['babelify', {
-            'presets': ['@babel/preset-env']
-          }]
-        ]
+            presets: ['@babel/preset-env'],
+          }],
+        ],
       },
       server: {
         src: '<%= config.app %>/scripts/main.js',
         dest: '.tmp/scripts/main.js',
-      }
+      },
     },
 
     // Process CSS
     postcss: {
       options: {
         map: {
-          inline: false
+          inline: false,
         },
         processors: [
           require('postcss-flexbugs-fixes'),
-          require('autoprefixer')
-        ]
+          require('autoprefixer'),
+        ],
       },
       server: {
         files: [{
           expand: true,
           cwd: '.tmp/',
           src: '{,*/}*.css',
-          dest: '.tmp/'
-        }]
+          dest: '.tmp/',
+        }],
       },
       dist: {
         options: {
@@ -248,7 +248,7 @@ module.exports = function (grunt) {
             require('postcss-uncss')({
               htmlroot: '.tmp',
               html: [
-                '.tmp/{,*/}*.html'
+                '.tmp/{,*/}*.html',
               ],
               ignore: [
                 '.arrow',
@@ -256,18 +256,18 @@ module.exports = function (grunt) {
                 '.hide',
                 '.fade',
                 /\.(bs-)?popover/,
-                /\.(bs-)?tooltip/
-              ]
-            })
-          ]
+                /\.(bs-)?tooltip/,
+              ],
+            }),
+          ],
         },
         files: [{
           expand: true,
           cwd: '.tmp/',
           src: '{,*/}*.css',
-          dest: '.tmp/'
-        }]
-      }
+          dest: '.tmp/',
+        }],
+      },
     },
 
     // Generate custom icon font
@@ -286,9 +286,9 @@ module.exports = function (grunt) {
           templateOptions: {
             baseClass: 'icon',
             classPrefix: 'icon-',
-          }
-        }
-      }
+          },
+        },
+      },
     },
 
     // Generate favicons
@@ -308,8 +308,8 @@ module.exports = function (grunt) {
                 ios6AndPriorIcons: false,
                 ios7AndLaterIcons: false,
                 precomposedIcons: false,
-                declareOnlyDefaultIcon: true
-              }
+                declareOnlyDefaultIcon: true,
+              },
             },
             desktopBrowser: {},
             windows: {
@@ -322,9 +322,9 @@ module.exports = function (grunt) {
                   small: false,
                   medium: true,
                   big: false,
-                  rectangle: false
-                }
-              }
+                  rectangle: false,
+                },
+              },
             },
             androidChrome: {
               pictureAspect: 'noChange',
@@ -334,27 +334,27 @@ module.exports = function (grunt) {
                 display: 'standalone',
                 orientation: 'notSet',
                 onConflict: 'override',
-                declared: true
+                declared: true,
               },
               assets: {
                 legacyIcon: false,
-                lowResolutionIcons: false
-              }
+                lowResolutionIcons: false,
+              },
             },
             safariPinnedTab: {
               pictureAspect: 'silhouette',
-              themeColor: '#5bbad5'
-            }
+              themeColor: '#5bbad5',
+            },
           },
           settings: {
             scalingAlgorithm: 'Mitchell',
             errorOnImageTooSmall: false,
             readmeFile: false,
             htmlCodeFile: false,
-            usePathAsIs: false
-          }
-        }
-      }
+            usePathAsIs: false,
+          },
+        },
+      },
     },
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
@@ -362,18 +362,18 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       options: {
-        dest: '<%= config.dist %>'
+        dest: '<%= config.dist %>',
       },
-      html: '.tmp/index.html'
+      html: '.tmp/index.html',
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       options: {
-        assetsDirs: ['<%= config.dist %>']
+        assetsDirs: ['<%= config.dist %>'],
       },
       html: ['<%= config.dist %>/{,**/}*.html'],
-      css: ['<%= config.dist %>/{,*/}*.css']
+      css: ['<%= config.dist %>/{,*/}*.css'],
     },
 
     // The following *-min tasks produce minified files in the dist folder
@@ -381,25 +381,25 @@ module.exports = function (grunt) {
       options: {
         use: [
           mozjpeg({
-            quality: 80
+            quality: 80,
           }),
           optipng(),
           pngquant(),
           svgo({
             plugins: [{
-              removeViewBox: false
-            }]
-          })
-        ]
+              removeViewBox: false,
+            }],
+          }),
+        ],
       },
       dist: {
         files: [{
           expand: true,
           cwd: '<%= config.app %>/media',
           src: '{,**/}*.{png,jpg,jpeg,svg}',
-          dest: '<%= config.dist %>/media'
-        }]
-      }
+          dest: '<%= config.dist %>/media',
+        }],
+      },
     },
     htmlmin: {
       dist: {
@@ -413,15 +413,15 @@ module.exports = function (grunt) {
           removeOptionalTags: true,
           removeRedundantAttributes: false,
           useShortDoctype: true,
-          processScripts: ['application/ld+json']
+          processScripts: ['application/ld+json'],
         },
         files: [{
           expand: true,
           cwd: '<%= config.dist %>',
           src: '{,**/}*.html',
-          dest: '<%= config.dist %>'
-        }]
-      }
+          dest: '<%= config.dist %>',
+        }],
+      },
     },
 
     // Put files not handled in other tasks here
@@ -436,18 +436,18 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.txt',
             'media/{,**/}*.{webp,gif,ico,xml,webmanifest}',
-            'media/fonts/*'
-          ]
-        },{
+            'media/fonts/*',
+          ],
+        }, {
           expand: true,
           dot: true,
           cwd: '<%= config.app %>',
           dest: '<%= config.dist %>',
           flatten: true,
           src: [
-            'media/favicon.ico'
-          ]
-        },{
+            'media/favicon.ico',
+          ],
+        }, {
           expand: true,
           dot: true,
           cwd: '.tmp',
@@ -455,19 +455,19 @@ module.exports = function (grunt) {
           src: [
             'media/fonts/*',
             'robots.txt',
-            'sitemap.xml'
-          ]
-        },{
+            'sitemap.xml',
+          ],
+        }, {
           expand: true,
           dot: true,
           cwd: '.tmp',
           dest: '<%= config.dist %>',
           src: [
             '{,**/}*.html',
-            '!icons.html'
-          ]
-        }]
-      }
+            '!icons.html',
+          ],
+        }],
+      },
     },
 
     // Inline Critical CSS
@@ -479,35 +479,35 @@ module.exports = function (grunt) {
         height: 900,
         ignore: [
           '@font-face',
-          '@import'
-        ]
+          '@import',
+        ],
       },
       pages: {
         expand: true,
         cwd: '<%= config.dist %>',
         src: '{,**/}*.html',
         dest: '<%= config.dist %>',
-      }
+      },
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     eslint: {
       options: {
-        configFile: '.eslintrc.json'
+        configFile: '.eslintrc.json',
       },
       target: [
-        '<%= config.app %>/scripts/{,*/}*.js'
-      ]
+        '<%= config.app %>/scripts/{,*/}*.js',
+      ],
     },
 
     // Pick an unused port for livereload
     portPick: {
       browserSync: {
         options: {
-          port: 9000
+          port: 9000,
         },
-        targets: ['browserSync.options.port']
-      }
+        targets: ['browserSync.options.port'],
+      },
     },
 
     // Renames files for browser caching purposes
@@ -517,9 +517,9 @@ module.exports = function (grunt) {
           '<%= config.dist %>/scripts/{,*/}*.js',
           '<%= config.dist %>/styles/{,*/}*.css',
           '<%= config.dist %>/media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}',
-          '!<%= config.dist %>/media/{android,apple,favicon,mstile,safari}*.*'
-        ]
-      }
+          '!<%= config.dist %>/media/{android,apple,favicon,mstile,safari}*.*',
+        ],
+      },
     },
 
     // Run some tasks in parallel to speed up build process
@@ -527,14 +527,14 @@ module.exports = function (grunt) {
       server: [
         'webfont',
         'sass',
-        'browserify'
+        'browserify',
       ],
       dist: [
         'webfont',
         'sass',
         'browserify',
-        'imagemin'
-      ]
+        'imagemin',
+      ],
     },
 
     // Deploy to AWS S3
@@ -544,8 +544,8 @@ module.exports = function (grunt) {
         bucket: '<%= process.env.S3_BUCKET %>',
         gzip: false,
         headers: {
-          CacheControl: 'public, no-cache, no-transform, s-maxage=31536000'
-        }
+          CacheControl: 'public, no-cache, no-transform, s-maxage=31536000',
+        },
       },
       // Define file location for all environments
       default: {
@@ -555,8 +555,8 @@ module.exports = function (grunt) {
           'robots.txt',
           'sitemap.xml',
           'media/{android,apple,favicon,mstile,safari,}*.*',
-          'media/*.{xml,webmanifest}'
-        ]
+          'media/*.{xml,webmanifest}',
+        ],
       },
       defaultAssets: {
         src: [
@@ -564,41 +564,41 @@ module.exports = function (grunt) {
           'styles/{,*/}*.css',
           'media/{,**/}*.{png,jpg,jpeg,gif,webp,svg,eot,ttf,woff,woff2}',
           '!media/{android,apple,favicon,mstile,safari}*.*',
-          '!media/*.{xml,webmanifest}'
-        ]
+          '!media/*.{xml,webmanifest}',
+        ],
       },
       dist: {
         options: {
           headers: {
-            CacheControl: 'public, must-revalidate, no-transform, max-age=60, s-maxage=31536000'
-          }
+            CacheControl: 'public, must-revalidate, no-transform, max-age=60, s-maxage=31536000',
+          },
         },
         cwd: '<%= config.dist %>',
-        src: '<%= s3.default.src %>'
+        src: '<%= s3.default.src %>',
       },
       distAssets: {
         options: {
           headers: {
-            CacheControl: 'public, must-revalidate, no-transform, max-age=31536000, s-maxage=31536000'
-          }
+            CacheControl: 'public, must-revalidate, no-transform, max-age=31536000, s-maxage=31536000',
+          },
         },
         cwd: '<%= config.dist %>',
-        src: '<%= s3.defaultAssets.src %>'
-      }
+        src: '<%= s3.defaultAssets.src %>',
+      },
     },
 
     // Invalidate Cloudfront
     cloudfront: {
       options: {
-        distributionId: '<%= process.env.CLOUDFRONT_ID %>'
+        distributionId: '<%= process.env.CLOUDFRONT_ID %>',
       },
       production: {
         options: {
           invalidations: [
-            '/*'
-          ]
-        }
-      }
+            '/*',
+          ],
+        },
+      },
     },
 
     // Increment version number, create and push tag
@@ -606,8 +606,8 @@ module.exports = function (grunt) {
       options: {
         files: ['package.json'],
         commitFiles: '<%= bump.options.files %>',
-        pushTo: 'origin'
-      }
+        pushTo: 'origin',
+      },
     },
 
     // Text replacements
@@ -619,8 +619,8 @@ module.exports = function (grunt) {
         overwrite: true,
         replacements: [{
           from: /<meta property="og:(image|url)" content="?([^"]+)"?/g,
-          to: '<meta property="og:$1" content="<%= package.homepage %>$2"'
-        }]
+          to: '<meta property="og:$1" content="<%= package.homepage %>$2"',
+        }],
       },
       relCanonical: {
         src: [
@@ -629,8 +629,8 @@ module.exports = function (grunt) {
         overwrite: true,
         replacements: [{
           from: /<link rel="canonical" href="?([^"]+)"?/g,
-          to: '<link rel="canonical" href="<%= package.homepage %>$1"'
-        }]
+          to: '<link rel="canonical" href="<%= package.homepage %>$1"',
+        }],
       },
       sitemap: {
         src: [
@@ -640,22 +640,22 @@ module.exports = function (grunt) {
         replacements: [
           {
             from: 'index.html',
-            to: ''
+            to: '',
           }, {
             from: /\s+<changefreq>[a-z]+<\/changefreq>/g,
-            to: ''
+            to: '',
           }, {
             from: /\s+<priority>[0-9\.]+<\/priority>/g,
-            to: ''
-          }
+            to: '',
+          },
 
-        ]
-      }
+        ],
+      },
     },
 
   });
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', (target) => {
     if (target === 'dist') {
       return grunt.task.run(['build', 'portPick:browserSync', 'browserSync:dist']);
     }
@@ -667,16 +667,16 @@ module.exports = function (grunt) {
       'concurrent:server',
       'postcss:server',
       'browserSync:livereload',
-      'watch'
+      'watch',
     ]);
   });
 
   grunt.registerTask('purge', [
-    'cloudfront'
+    'cloudfront',
   ]);
 
   grunt.registerTask('test', [
-    'eslint'
+    'eslint',
   ]);
 
   grunt.registerTask('build', [
@@ -693,17 +693,17 @@ module.exports = function (grunt) {
     'usemin',
     'replace',
     'htmlmin',
-    'critical'
+    'critical',
   ]);
 
   grunt.registerTask('deploy', [
     'build',
     's3:dist',
     's3:distAssets',
-    'purge'
+    'purge',
   ]);
 
   grunt.registerTask('default', [
-    'build'
+    'build',
   ]);
 };
