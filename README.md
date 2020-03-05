@@ -12,7 +12,7 @@ Install [NVM](http://nvm.sh), and follow the instructions for adding to your she
 
 Install a default LTS version of Node and [avn](https://github.com/wbyoung/avn) for automatic node version switching.
 
-    $ nvm install 10
+    $ nvm install 12
     $ npm install -g avn avn-nvm
     $ avn setup
 
