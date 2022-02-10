@@ -58,7 +58,7 @@
     "imagemin-pngquant": "^7.0.0",
     "imagemin-svgo": "^7.1.0",
     "jit-grunt": "^0.10.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "postcss-flexbugs-fixes": "^4.2.0",
     "postcss-uncss": "^0.16.1",
     "time-grunt": "^2.0.0",
